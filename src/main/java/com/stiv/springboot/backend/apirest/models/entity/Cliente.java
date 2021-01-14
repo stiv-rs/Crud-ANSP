@@ -27,6 +27,11 @@ public class Cliente implements Serializable {
 	@Column(name = "create_at")
 	@Temporal(TemporalType.DATE)
 	private Date createAt;
+	
+	@javax.persistence.PrePersist
+	public void PrePersist() {
+		createAt = new Date();
+	}
 
 	public Long getId() {
 		return id;
