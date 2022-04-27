@@ -1,5 +1,6 @@
 package com.stiv.springboot.backend.apirest.controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -156,6 +157,16 @@ public class ClienteRestController {
 
 		Map<String, Object> response = new HashMap<>();
 		
+		Cliente cliente = clienteService.finById(id);
+		String nombreFotoAnterior = cliente.getFoto();
+		if (nombreFotoAnterior != null && nombreFotoAnterior.length() > 0) {
+			Path rutaFotoAnterior = Paths.get("uploads").resolve(nombreFotoAnterior).toAbsolutePath();
+			File archivoFotoAnterior = rutaFotoAnterior.toFile();
+			if (archivoFotoAnterior.exists() && archivoFotoAnterior.canRead()) {
+				archivoFotoAnterior.delete();
+			}
+		}
+		
 		try {
 			clienteService.delete(id);
 		} catch (DataAccessException e) {
@@ -184,6 +195,15 @@ public class ClienteRestController {
 				response.put("mensaje", "Error al subir la imagen " + nombreArchivo);
 				response.put("error", e.getMessage().concat(": ").concat(e.getCause().getMessage()));
 				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+			
+			String nombreFotoAnterior = cliente.getFoto();
+			if (nombreFotoAnterior != null && nombreFotoAnterior.length() > 0) {
+				Path rutaFotoAnterior = Paths.get("uploads").resolve(nombreFotoAnterior).toAbsolutePath();
+				File archivoFotoAnterior = rutaFotoAnterior.toFile();
+				if (archivoFotoAnterior.exists() && archivoFotoAnterior.canRead()) {
+					archivoFotoAnterior.delete();
+				}
 			}
 			
 			cliente.setFoto(nombreArchivo);
