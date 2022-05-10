@@ -58,7 +58,7 @@ public class Cliente implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "region_id")
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-	private String region;
+	private Region region;
 	
 
 	public Long getId() {
@@ -109,11 +109,11 @@ public class Cliente implements Serializable {
 		this.foto = foto;
 	}
 	
-	public String getRegion() {
+	public Region getRegion() {
 		return region;
 	}
 
-	public void setRegion(String region) {
+	public void setRegion(Region region) {
 		this.region = region;
 	}
 
