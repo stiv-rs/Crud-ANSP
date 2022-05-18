@@ -21,3 +21,12 @@ INSERT INTO clientes (nombre, apellido, email, create_at, region_id) VALUES ('Ma
 INSERT INTO clientes (nombre, apellido, email, create_at, region_id) VALUES ('Tornado', 'Roe', 'tornado.roe@gmail.com', '2018-03-05',2);
 INSERT INTO clientes (nombre, apellido, email, create_at, region_id) VALUES ('Jade', 'Doe', 'jane.doe@gmail.com', '2018-03-06',7);
 
+INSERT INTO usuarios (username, password,enabled) VALUES ('andres','$2a$10$V8zvp2xDR60YwNHQLZPJl.1v2mUzLjw8NWwpc3wp6E1TI0k/2Guba',1);
+INSERT INTO usuarios (username, password,enabled) VALUES ('admin','$2a$10$9hHMUf95K3fKC4vH6M0mROCAgNGcUd6Sr9u8Jd8Fhfio9uu4MsZ.q',1);
+
+INSERT INTO roles (nombre) VALUES ('ROLE_USER');
+INSERT INTO roles (nombre) VALUES ('ROLE_ADMIN');
+
+INSERT INTO usuarios_roles (usuario_id, role_id) VALUES (1,1);
+INSERT INTO usuarios_roles (usuario_id, role_id) VALUES (2,2);
+INSERT INTO usuarios_roles (usuario_id, role_id) VALUES (2,1);
