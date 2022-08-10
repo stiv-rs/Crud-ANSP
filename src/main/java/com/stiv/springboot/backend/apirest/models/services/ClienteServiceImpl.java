@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.stiv.springboot.backend.apirest.models.dao.IClienteDao;
 import com.stiv.springboot.backend.apirest.models.dao.IFacturaDao;
+import com.stiv.springboot.backend.apirest.models.dao.IProductoDao;
 import com.stiv.springboot.backend.apirest.models.entity.Cliente;
 import com.stiv.springboot.backend.apirest.models.entity.Factura;
+import com.stiv.springboot.backend.apirest.models.entity.Producto;
 import com.stiv.springboot.backend.apirest.models.entity.Region;
 
 @Service
@@ -20,6 +22,9 @@ public class ClienteServiceImpl implements IClienteService {
 	
 	@Autowired
 	private IFacturaDao facturaDao;
+	
+	@Autowired
+	private IProductoDao productoDao;
 	
 	@Override
 	@Transactional(readOnly = true)
@@ -72,5 +77,12 @@ public class ClienteServiceImpl implements IClienteService {
 	@Transactional
 	public void deleteFacturaById(Long id) {
 		facturaDao.deleteById(id);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Producto> findProductoByNombre(String term) {
+		
+		return productoDao.findProductoByNombreContainingIgnoreCase(term);
 	}	
 }
